@@ -27,9 +27,12 @@ export default tseslint.config(
   },
   {
     rules: {
+      'eol-last': 'off',
+      'no-trailing-spaces': 'off', // Disable trailing space errors
+      'no-multiple-empty-lines': ['warn', { max: 10 }],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      '@typescript-eslint/no-unsafe-argument': 'warn',
     },
   },
 );
