@@ -28,5 +28,5 @@ export class Url {
 export const UrlSchema = SchemaFactory.createForClass(Url);
 
 // Add indices for better query performance
-UrlSchema.index({ shortcode: 1 }, { unique: true });
+// UrlSchema.index({ shortcode: 1 }, { unique: true });
 UrlSchema.index({ userId: 1 });
