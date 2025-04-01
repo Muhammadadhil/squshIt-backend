@@ -38,7 +38,6 @@ export class UrlController {
   @Get('urls')
   @UseGuards(JwtAuthGuard)
   async getAllUrls(@Req() req: Request) {
-    console.log('req:', req);
     const userId = req.user?.['userId'];
     console.log('userId for urls:', userId);
     const urls = await this.urlService.getAllUrlsByUser(userId);

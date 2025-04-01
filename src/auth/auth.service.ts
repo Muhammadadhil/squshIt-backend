@@ -37,6 +37,7 @@ export class AuthService {
   }
 
   async login(email: string, password: string, res: Response): Promise<void> {
+    console.log('process.env.........', process.env.JWT_SECRET);
     const user = await this.userRepository.findOne(email);
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
@@ -48,9 +49,7 @@ export class AuthService {
       userId: user.id,
     };
     const token = await this.generateJwtToken(payload);
-    console.log('tokenvvvvvvvv:', token);
     this.setCookie(res, token);
-    console.log('cookie set');
   }
 
   async generateJwtToken(payload: {
@@ -62,7 +61,6 @@ export class AuthService {
   }
 
   private setCookie(res: Response, token: string): void {
-    console.log('Setting cookie with token:', token);
     res.cookie('access_token', token, {
       httpOnly: true,
       maxAge: 15 * 60 * 1000, // 15 minutes
@@ -70,6 +68,5 @@ export class AuthService {
       secure: true, // Use true for production
       path: '/',
     });
-    console.log('Cookie set:', res.getHeaders());
   }
 }
