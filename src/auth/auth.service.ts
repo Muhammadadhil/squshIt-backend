@@ -37,7 +37,6 @@ export class AuthService {
   }
 
   async login(email: string, password: string, res: Response): Promise<void> {
-    console.log('process.env.........', process.env.JWT_SECRET);
     const user = await this.userRepository.findOne(email);
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
@@ -64,7 +63,7 @@ export class AuthService {
     res.cookie('access_token', token, {
       httpOnly: true,
       maxAge: 15 * 60 * 1000, // 15 minutes
-      sameSite: 'lax',
+      sameSite: 'none',
       secure: true, // Use true for production
       path: '/',
     });
