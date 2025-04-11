@@ -25,9 +25,12 @@ export class UrlService {
       return existingUrl;
     }
 
-    // Generate a random 8-character short code
-    const shortcode = randomBytes(4).toString('hex');
-    console.log('shortcode:', shortcode);
+    let shortcode: string;
+
+    do {
+      // Generate a random 8-character short code
+      shortcode = randomBytes(4).toString('hex');
+    } while (await this.urlRepository.findByShortcode(shortcode));
 
     // Create the new URL
     const newUrl = await this.urlRepository.create({

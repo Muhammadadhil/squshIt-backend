@@ -22,7 +22,7 @@ export class AuthService {
     password: string,
     res: Response,
   ): Promise<void> {
-    const userExists = await this.userRepository.findOne(email);
+    const userExists = await this.userRepository.findOne({ email });
     if (userExists) {
       throw new BadRequestException('Email already in use');
     }
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   async login(email: string, password: string, res: Response): Promise<void> {
-    const user = await this.userRepository.findOne(email);
+    const user = await this.userRepository.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }

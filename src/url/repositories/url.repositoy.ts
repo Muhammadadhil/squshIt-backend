@@ -2,19 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Url, UrlDocument } from '../schemas/url.shema';
+import { BaseRepository } from 'src/common/base.repository';
 
 @Injectable()
-export class UrlRepository {
-  constructor(@InjectModel(Url.name) private urlModel: Model<UrlDocument>) {}
-
-  /**
-   * Creates a new URL document
-   * @param urlData The URL data to create
-   * @returns The created URL document
-   */
-  async create(urlData: Partial<Url>): Promise<UrlDocument> {
-    const newUrl = new this.urlModel(urlData);
-    return newUrl.save();
+export class UrlRepository extends BaseRepository<UrlDocument> {
+  constructor(@InjectModel(Url.name) private urlModel: Model<UrlDocument>) {
+    super(urlModel);
   }
 
   /**
@@ -56,7 +49,10 @@ export class UrlRepository {
    * @param urlData The data to update
    * @returns The updated URL document
    */
-  async update(id: string, urlData: Partial<Url>): Promise<UrlDocument | null> {
+  async updateUrl(
+    id: string,
+    urlData: Partial<Url>,
+  ): Promise<UrlDocument | null> {
     return this.urlModel.findByIdAndUpdate(id, urlData, { new: true }).exec();
   }
 
@@ -65,7 +61,7 @@ export class UrlRepository {
    * @param id The ID of the URL to delete
    * @returns The deleted URL document
    */
-  async delete(id: string): Promise<UrlDocument | null> {
+  async deleteUrl(id: string): Promise<UrlDocument | null> {
     return this.urlModel.findByIdAndDelete(id).exec();
   }
 
