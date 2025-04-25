@@ -18,7 +18,7 @@ async function bootstrap() {
     }),
   );
   await app.listen(process.env.PORT ?? 3000);
-  console.log('Memory usage:', process.memoryUsage());
+  // console.log('Memory usage:', process.memoryUsage());
 }
 
 bootstrap();

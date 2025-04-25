@@ -51,6 +51,10 @@ export class AuthService {
     this.setCookie(res, token);
   }
 
+  logout(res: Response): void {
+    res.clearCookie('access_token', { httpOnly: true, secure: true });
+  }
+
   async generateJwtToken(payload: {
     name: string;
     userId: string;

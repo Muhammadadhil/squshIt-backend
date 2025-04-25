@@ -22,7 +22,6 @@ export class UrlController {
   @Post('shorten-url')
   @UseGuards(JwtAuthGuard)
   async shortenUrl(@Body() createUrlDto: CreateUrlDto, @Req() req: Request) {
-    console.log('asfdasfdasfd;jsakf;lsajfd;asdf');
     const userId = req.user?.['userId'];
     const shortUrl = await this.urlService.createShortUrl(
       createUrlDto.originalUrl,

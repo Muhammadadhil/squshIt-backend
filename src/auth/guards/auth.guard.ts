@@ -21,16 +21,7 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      const decoded = this.jwtService.decode(token);
-      console.log('Decoded Payload:', decoded);
-
-      const token1 = await this.jwtService.signAsync({ id: '123' });
-      console.log('token1:', token1);
-      const verifiedPayload = await this.jwtService.verifyAsync(token1);
-      console.log('Verified Payload:', verifiedPayload);
-
       const payload = await this.jwtService.verifyAsync(token);
-      console.log('payload:', payload);
       request['user'] = payload;
       return true;
     } catch (error) {
